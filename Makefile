@@ -9,8 +9,8 @@ none:
 all: local c64 c64small
 
 clean:
-	-rm potion potion.prg
-	-rm -rf local target
+	-rm potion potion.prg potion.small.prg
+	-rm -rf local target smalltarget
 
 local:
 	make -f Makefile.linux
