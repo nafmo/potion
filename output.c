@@ -31,7 +31,9 @@ void putstring(const char *s)
 			{
 				case ' ': lastspace = p;
 			}
-			*(dest ++) = *(p ++);
+			*dest = *p;
+			++ dest;
+			++ p;
 			-- spaceleft;
 		}
 
@@ -60,8 +62,4 @@ void putstring(const char *s)
 	}
 
 	puts(s);
-
-#ifndef __C64__
-	free(tmpbuf);
-#endif
 }
