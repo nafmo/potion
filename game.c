@@ -131,6 +131,9 @@ void initgame(void)
 #endif
 
 	gamedata->room = 15;
+	gamedata->pilleaten = 0;
+	gamedata->seenscientist = 0;
+	gamedata->roadvisit = 0;
 #ifdef SMALL
 	__asm__("ldx #%b", (unsigned char) OBJECTS - 1);
 	__asm__("resetobjects: lda %v,x", defaultrooms);
