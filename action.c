@@ -477,6 +477,7 @@ unsigned char look(unsigned char object)
 			/* Else fall through */
 
 		default:
+			nothing();
 			return GAME_CONTINUES;
 	}
 }
