@@ -38,11 +38,18 @@ unsigned char perform(unsigned char verb)
 
 	if (-1 == object)
 	{
+		if (V_LOOK == verb)
+		{
+			printroom();
+		}
+		else
+		{
 #ifdef SMALL
-		PUTS("What?");
+			PUTS("What?");
 #else
-		PUTS("I do not see that here.");
+			PUTS("I do not see that here.");
 #endif
+		}
 		return GAME_CONTINUES;
 	}
 
