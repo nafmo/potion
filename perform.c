@@ -21,8 +21,10 @@ unsigned char perform(unsigned char verb)
 		case V_I:
 			return inventory();
 
+#ifndef SMALL
 		case V_LICENSE:
 			return license();
+#endif
 
 		case V_QUIT:
 			return quit();
@@ -35,7 +37,11 @@ unsigned char perform(unsigned char verb)
 
 	if (-1 == object)
 	{
+#ifdef SMALL
+		puts("What?");
+#else
 		puts("I do not see that here.");
+#endif
 		return GAME_CONTINUES;
 	}
 
@@ -81,7 +87,9 @@ unsigned char perform(unsigned char verb)
 			return drop((unsigned char) object);
 	}
 
+#ifndef SMALL
 	puts("Say what?");
+#endif
 
 	/* This should never happen */
 	return GAME_CONTINUES;

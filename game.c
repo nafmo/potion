@@ -59,7 +59,7 @@ int main(void)
 			break;
 	}
 
-	putstring(s);
+	puts(s);
 
 #ifndef __C64__
 	free(gamedata);
@@ -118,8 +118,17 @@ void initgame(void)
 	input = malloc(1024);
 #endif
 
+#ifdef SMALL
+# if INVENTORY == 2
+	gamedata->inventory[0] = -1;
+	gamedata->inventory[1] = -1;
+# else
+#  error "No in-lining"
+# endif
+#else
 	for (i = 0; i < INVENTORY; ++ i)
 		gamedata->inventory[i] = -1;
+#endif
 
 	gamedata->room = 15;
 	memcpy(gamedata->objects, defaultrooms, OBJECTS);
@@ -141,12 +150,17 @@ void intro(void)
 	textcolor(COLOR_GRAY3);
 #endif
 
+#ifdef SMALL
+	puts("The Potion");
+#else
 	putstring("The Potion - a simple adventure\n"
 	          "==========\n\n"
-	          "Copyright 2002 Peter Karlsson.\n"
+	          "Copyright 2002-2003 Peter Karlsson.\n"
 	          "A Softwolves Software Release.\n"
 	          "http://www.softwolves.pp.se/cbm/\n\n"
 	          "This program comes with ABSOLUTELY NO WARRANTY. This is free "
 	          "software, and you are welcome to redistribute it under "
-	          "certain conditions; type \"license\" for details.\n");
+	          "certain conditions; type \"license\" for details.\n"
+	          );
+#endif
 }

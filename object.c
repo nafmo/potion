@@ -74,10 +74,14 @@ void printobject(unsigned char objnum)
 	puts(s);
 }
 
-BOOL findobject(unsigned char object, BOOL checkinventory)
+BOOL findobject(unsigned char _object, BOOL checkinventory)
 {
+	NR unsigned char object;
+#ifndef SMALL
 	NR unsigned char i;
 	NR signed char *inventory;
+#endif
+	object = _object;
 
 	/* Is the object in the room? */
 	if (gamedata->objects[object] == gamedata->room)
@@ -86,10 +90,21 @@ BOOL findobject(unsigned char object, BOOL checkinventory)
 	/* Is the object in the inventory? */
 	if (checkinventory)
 	{
+#ifdef SMALL
+		__asm__("lda %v", object);
+		__asm__("cmp %w", (unsigned int) &gamedata->inventory[0]);
+		__asm__("beq returntrue");
+		__asm__("cmp %w", (unsigned int) &gamedata->inventory[1]);
+		__asm__("bne notreturntrue");
+		__asm__("returntrue:");
+		return TRUE;
+		__asm__("notreturntrue:");
+#else
 		inventory = gamedata->inventory;
 		for (i = INVENTORY; i; -- i, ++ inventory)
 			if (*inventory == object)
 				return TRUE;
+#endif
 	}
 
 	return FALSE;
@@ -174,6 +189,24 @@ signed char objectfromword(const char *s, BOOL checkinventory)
 BOOL addinventory(unsigned char object)
 {
 	NR unsigned char i;
+#ifdef SMALL
+	if ((signed char) -1 == (signed char) gamedata->inventory[0])
+	{
+		gamedata->inventory[0] = object;
+	}
+	else if ((signed char) -1 == (signed char) gamedata->inventory[1])
+	{
+		gamedata->inventory[1] = object;
+	}
+	else
+	{
+		puts("Too heavy.");
+		return FALSE;
+	}
+
+	gamedata->objects[object] = -1;
+	return TRUE;
+#else
 	NR signed char *inventory;
 
 	inventory = gamedata->inventory;
@@ -189,11 +222,30 @@ BOOL addinventory(unsigned char object)
 
 	puts("It is too heavy.");
 	return FALSE;
+#endif
 }
 
 BOOL dropinventory(unsigned char object)
 {
 	NR unsigned char i;
+#ifdef SMALL
+	if ((signed char) object == (signed char) gamedata->inventory[0])
+	{
+		gamedata->inventory[0] = -1;
+	}
+	else if ((signed char) object == (signed char) gamedata->inventory[1])
+	{
+		gamedata->inventory[1] = -1;
+	}
+	else
+	{
+		puts("What?");
+		return FALSE;
+	}
+
+	gamedata->objects[object] = gamedata->room;
+	return TRUE;
+#else
 	NR signed char *inventory;
 
 	inventory = gamedata->inventory;
@@ -207,6 +259,7 @@ BOOL dropinventory(unsigned char object)
 		}
 
 	puts("You are not carrying that.");
+#endif
 	return FALSE;
 }
 

@@ -18,7 +18,9 @@ unsigned char drink(unsigned char object);
 unsigned char throw(unsigned char object);
 unsigned char look(unsigned char object);
 unsigned char drop(unsigned char object);
+#ifndef SMALL
 unsigned char license(void);
+#endif
 unsigned char quit(void);
 
 #endif

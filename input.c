@@ -4,7 +4,11 @@
 #include "input.h"
 #include "game.h"
 
-#define VERBS 29
+#ifdef SMALL
+# define VERBS 27
+#else
+# define VERBS 29
+#endif
 
 static const struct verb_s
 {
@@ -38,8 +42,10 @@ static const struct verb_s
 	{ 4, "look", V_LOOK },
 	{ 7, "examine", V_LOOK },
 	{ 4, "drop", V_DROP },
+#ifndef SMALL
 	{ 7, "license", V_LICENSE },
 	{ 7, "licence", V_LICENSE },
+#endif
 	{ 4, "quit", V_QUIT },
 	{ 4, "exit", V_QUIT },
 };
@@ -100,6 +106,10 @@ unsigned char getinput(void)
 			}
 		}
 
+#ifdef SMALL
+		puts("What?");
+#else
 		puts("I do not understand.");
+#endif
 	}
 }

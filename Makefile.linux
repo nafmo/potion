@@ -4,6 +4,7 @@ OBJS=local/action.o local/game.o local/input.o local/object.o \
      local/perform.o local/room.o local/output.o
 
 all: local potion
+	ls -o potion
 
 local:
 	mkdir local
