@@ -351,3 +351,11 @@ unsigned char license(void)
               "Software Foundation, Inc., 59 Temple Place, Suite 330, "
               "Boston, MA  02111-1307  USA");
 }
+
+unsigned char quit(void)
+{
+	putstring("You leave for your home country. In the distance, you "
+	          "can hear the evil scientist laughing mercilessly as he "
+	          "unleashes his horrible magical potion on the land.");
+	return GAME_LOST;
+}

@@ -23,6 +23,9 @@ unsigned char perform(unsigned char verb)
 
 		case V_LICENSE:
 			return license();
+
+		case V_QUIT:
+			return quit();
 	}
 
 	/* Other words require an object */

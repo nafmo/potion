@@ -19,5 +19,6 @@ unsigned char throw(unsigned char object);
 unsigned char look(unsigned char object);
 unsigned char drop(unsigned char object);
 unsigned char license(void);
+unsigned char quit(void);
 
 #endif
