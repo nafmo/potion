@@ -135,7 +135,7 @@ unsigned char read(unsigned char object)
 	{
 		case O_STONE_MISSION:
 			puts("It says:\n"
-			     "\"Save the world from the evil scientist.\n"
+			     "\"Save us from the evil scientist.\n"
 			     " Mix his evil drug with salt water.\n"
 			     " That is your mission.\"");
 			break;
