@@ -26,13 +26,13 @@ void printroom(void)
 
 		case 4: case 10: case 12:
 		case 16: case 18:
-			s = "You are standing on a big plain.\n"
+			s = "You are standing on a big plain. "
 			    "You hear the distant hum of motors.";
 			break;
 
 		case 5: case 11: case 17:
 		case 23: case 24:
-			s = "You are standing on an autobahn.\n"
+			s = "You are standing on an autobahn. "
 			    "Several cars are passing passing by.";
 			break;
 
@@ -61,7 +61,7 @@ void printroom(void)
 			break;
 	}
 
-	puts(s);
+	putstring(s);
 
 	/* Print room contents */
 	object = gamedata->objects;

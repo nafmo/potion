@@ -17,6 +17,7 @@
 struct gamedata_s *gamedata = NULL;
 char *input = NULL;
 const char *object_string = NULL;
+int screenwidth;
 #endif
 
 void initgame(void);
@@ -57,7 +58,7 @@ int main(void)
 			break;
 	}
 
-	puts(s);
+	putstring(s);
 
 #ifndef __C64__
 	free(gamedata);
@@ -110,6 +111,9 @@ static const unsigned char defaultmap[MAPSIZE] =
 void initgame(void)
 {
 	NR unsigned char i;
+#ifndef __C64__
+	const char *columns;
+#endif
 
 #ifndef __C64__
 	gamedata = malloc(sizeof (struct gamedata_s));
@@ -139,14 +143,13 @@ void intro(void)
 	textcolor(COLOR_GRAY3);
 #endif
 
-	puts("============= The Potion ==============\n"
-	     "A simple adventure.\n"
-	     "Copyright 2002 Peter Karlsson.\n"
-	     "A Softwolves Software Release.\n"
-	     "http://www.softwolves.pp.se/cbm/\n\n"
-	     "This program is free software; you can\n"
-	     "redistribute and/or modify it under the\n"
-	     "terms of the GNU General Public License\n"
-	     "as published by the Free Software\n"
-	     "Foundation, version 2.\n");
+	putstring("============= The Potion ==============\n"
+	          "A simple adventure.\n"
+	          "Copyright 2002 Peter Karlsson.\n"
+	          "A Softwolves Software Release.\n"
+	          "http://www.softwolves.pp.se/cbm/\n\n"
+	          "This program is free software; you can redistribute and/or "
+	          "modify it under the terms of the GNU General Public License "
+	          "as published by the Free Software Foundation, version 2.\n\n"
+	          "For more information, type \"license\" at the prompt.\n");
 }

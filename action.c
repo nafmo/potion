@@ -136,10 +136,10 @@ unsigned char read(unsigned char object)
 	switch (object)
 	{
 		case O_STONE_MISSION:
-			puts("It says:\n"
-			     "\"Save us from the evil scientist.\n"
-			     " Mix his evil drug with salt water.\n"
-			     " That is your mission.\"");
+			putstring("It says:\n"
+			     "\"Save us from the evil scientist. "
+			     "Mix his evil drug with salt water. "
+			     "That is your mission.\"");
 			break;
 
 		default:
@@ -154,16 +154,16 @@ unsigned char talkto(unsigned char object)
 	switch (object)
 	{
 		case O_SCIENTIST:
-			puts("The scientist says:\n"
-			     "\"You will die with the rest!\"\n"
-			     "and laughs frantically.\n");
+			putstring("The scientist says:\n"
+			          "\"You will die with the rest!\" "
+			          "and laughs frantically.\n");
 			break;
 
 		case O_SQUIRREL:
 			if (gamedata->pilleaten)
 			{
-				puts("The squirrel says:\n"
-				     "\"You can now exit the forest\"");
+				putstring("The squirrel says:\n"
+				          "\"You can now exit the forest\"");
 				gamedata->map[3 - 1] |= EXIT_EAST;
 				break;
 			}

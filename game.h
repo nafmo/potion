@@ -55,4 +55,11 @@ extern const char *object_string;
 # define NR
 #endif
 
+/* Width of the screen to use when displaying text */
+#ifdef __C64__
+# define SCREENWIDTH 40
+#else
+# define SCREENWIDTH 80
+#endif
+
 #endif
