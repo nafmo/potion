@@ -169,6 +169,8 @@ BOOL dropinventory(unsigned char object)
 	NR unsigned char i;
 	NR signed char *inventory;
 
+	inventory = gamedata->inventory;
+
 	for (i = INVENTORY; i; i --, inventory ++)
 		if ((signed char) object == *inventory)
 		{
