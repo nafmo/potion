@@ -24,7 +24,8 @@ struct gamedata_s
 	signed char objects[OBJECTS];
 	BOOL pilleaten;
 	BOOL seenscientist;
-	unsigned char map[MAPSIZE];	
+	unsigned char map[MAPSIZE];
+	unsigned char roadvisit;
 };
 
 /* Global game data variable */

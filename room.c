@@ -11,7 +11,6 @@ void printroom(void)
 	NR const char *s;
 	NR unsigned char mapdata;
 	NR signed char *object;
-	static unsigned char roadvisit = 0;
 
 	seen = FALSE;
 	mapdata = gamedata->map[gamedata->room - 1];
@@ -40,11 +39,11 @@ void printroom(void)
 
 		case 5: case 11: case 17:
 		case 23: case 24:
-			switch (roadvisit)
+			switch (gamedata->roadvisit)
 			{
 			case 0:
 			case 1:
-				roadvisit ++;
+				gamedata->roadvisit ++;
 			case 3:
 				s = "You are standing on an autobahn. "
 				    "Several cars are passing passing by.";
@@ -54,7 +53,7 @@ void printroom(void)
 				s = "You are standing on an autobahn. "
 				    "Suddenly you see a skateboarder pass by, grabbing a "
 				    "bottle of Coca Cola from a nearby car.";
-				roadvisit ++;
+				gamedata->roadvisit ++;
 				gamedata->objects[O_COKE] = gamedata->room;
 				break;
 			}
