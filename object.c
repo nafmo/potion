@@ -161,9 +161,10 @@ signed char objectfromword(const char *s, BOOL checkinventory)
 		}
 	}
 
-	switch (j)
+
+	switch ((unsigned char) j)
 	{
-	case -1:
+	case (unsigned char) -1:
 		/* Not found in word list */
 		return -1;
 
@@ -213,9 +214,9 @@ BOOL addinventory(unsigned char object)
 	inventory = gamedata->inventory;
 
 	for (i = INVENTORY; i; -- i, ++ inventory)
-		switch (*inventory)
+		switch ((unsigned char) *inventory)
 		{
-			case -1:
+			case (unsigned char) -1:
 				*inventory = object;
 				gamedata->objects[object] = -1;
 				return TRUE;
