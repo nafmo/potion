@@ -12,7 +12,7 @@ void putstring(const char *s)
 
 	len = strlen(s);
 
-	while (len >= SCREENWIDTH)
+	while (len >= SCREENWIDTH - 1)
 	{
 		NR const char *p;
 		NR char *dest;
