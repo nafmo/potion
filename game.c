@@ -132,15 +132,17 @@ void initgame(void)
 
 	gamedata->room = 15;
 #ifdef SMALL
-	__asm__("resetobjects: ldx #%b", (unsigned char) OBJECTS);
-	__asm__("sta %w,x", (unsigned int) gamedata->objects - 1);
+	__asm__("ldx #%b", (unsigned char) OBJECTS - 1);
+	__asm__("resetobjects: lda %v,x", defaultrooms);
+	__asm__("sta %w,x", (unsigned int) gamedata->objects);
 	__asm__("dex");
-	__asm__("bne resetobjects");
+	__asm__("bpl resetobjects");
 
-	__asm__("resetmap: ldx #%b", (unsigned char) MAPSIZE);
-	__asm__("sta %w,x", (unsigned int) gamedata->map - 1);
+	__asm__("ldx #%b", (unsigned char) MAPSIZE - 1);
+	__asm__("resetmap: lda %v,x", defaultmap);
+	__asm__("sta %w,x", (unsigned int) gamedata->map);
 	__asm__("dex");
-	__asm__("bne resetmap");
+	__asm__("bpl resetmap");
 #else
 	memcpy(gamedata->objects, defaultrooms, OBJECTS);
 	memcpy(gamedata->map, defaultmap, MAPSIZE);
