@@ -12,11 +12,12 @@ unsigned char talkto(unsigned char object);
 unsigned char unlock(unsigned char object);
 unsigned char turn(unsigned char object);
 unsigned char hit(unsigned char object);
-unsigned char kill(unsigned char object);
+unsigned char kill(void);
 unsigned char pour(unsigned char object);
 unsigned char drink(unsigned char object);
 unsigned char throw(unsigned char object);
 unsigned char look(unsigned char object);
 unsigned char drop(unsigned char object);
+unsigned char license(void);
 
 #endif

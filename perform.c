@@ -20,6 +20,9 @@ unsigned char perform(unsigned char verb)
 
 		case V_I:
 			return inventory();
+
+		case V_LICENSE:
+			return license();
 	}
 
 	/* Other words require an object */
@@ -57,7 +60,7 @@ unsigned char perform(unsigned char verb)
 			return hit((unsigned char) object);
 
 		case V_KILL:
-			return kill((unsigned char) object);
+			return kill();
 
 		case V_POUR:
 			return pour((unsigned char) object);

@@ -144,13 +144,12 @@ void intro(void)
 	textcolor(COLOR_GRAY3);
 #endif
 
-	putstring("============= The Potion ==============\n"
-	          "A simple adventure.\n"
+	putstring("The Potion - a simple adventure\n"
+	          "==========\n\n"
 	          "Copyright 2002 Peter Karlsson.\n"
 	          "A Softwolves Software Release.\n"
 	          "http://www.softwolves.pp.se/cbm/\n\n"
-	          "This program is free software; you can redistribute and/or "
-	          "modify it under the terms of the GNU General Public License "
-	          "as published by the Free Software Foundation, version 2.\n\n"
-	          "For more information, type \"license\" at the prompt.\n");
+	          "This program comes with ABSOLUTELY NO WARRANTY. This is free "
+	          "software, and you are welcome to redistribute it under "
+	          "certain conditions; type \"license\" for details.\n");
 }

@@ -4,7 +4,7 @@
 #include "input.h"
 #include "game.h"
 
-#define VERBS 25
+#define VERBS 27
 
 static const struct verb_s
 {
@@ -38,6 +38,8 @@ static const struct verb_s
 	{ 4, "look", V_LOOK },
 	{ 7, "examine", V_LOOK },
 	{ 4, "drop", V_DROP },
+	{ 7, "license", V_LICENSE },
+	{ 7, "licence", V_LICENSE },
 };
 
 #ifdef __C64__

@@ -20,6 +20,7 @@
 #define V_THROW 16
 #define V_LOOK 17
 #define V_DROP 18
+#define V_LICENSE 19
 
 /* Retrieve input from user and return the verb */
 unsigned char getinput(void);
