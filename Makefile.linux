@@ -1,3 +1,5 @@
+CFLAGS=-Wall
+
 OBJS=local/action.o local/game.o local/input.o local/object.o \
      local/perform.o local/room.o local/output.o
 
@@ -10,6 +12,6 @@ potion: $(OBJS)
 	gcc -o potion $(OBJS)
 
 local/%.o: %.c
-	gcc -c -o $@ $<
+	gcc $(CFLAGS) -c -o $@ $<
 
 .PHONY: all
