@@ -144,7 +144,7 @@ signed char objectfromword(const char *s, BOOL checkinventory)
 	return -1;
 }
 
-void addinventory(unsigned char object)
+BOOL addinventory(unsigned char object)
 {
 	NR unsigned char i;
 	NR signed char *inventory;
@@ -157,13 +157,14 @@ void addinventory(unsigned char object)
 			case -1:
 				*inventory = object;
 				gamedata->objects[object] = -1;
-				return;
+				return TRUE;
 		}
 
 	puts("It is too heavy.");
+	return FALSE;
 }
 
-void dropinventory(unsigned char object)
+BOOL dropinventory(unsigned char object)
 {
 	NR unsigned char i;
 	NR signed char *inventory;
@@ -173,10 +174,11 @@ void dropinventory(unsigned char object)
 		{
 			*inventory = -1;
 			gamedata->objects[object] = gamedata->room;
-			return;
+			return TRUE;
 		}
 
 	puts("You are not carrying that.");
+	return FALSE;
 }
 
 BOOL movable(unsigned char object)

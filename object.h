@@ -35,10 +35,10 @@ void printobject(unsigned char);
 signed char objectfromword(const char *, BOOL checkinventory);
 
 /* Remove object from game map and add to inventory. */
-void addinventory(unsigned char object);
+BOOL addinventory(unsigned char object);
 
 /* Remove object from inventory and add to game map. */
-void dropinventory(unsigned char object);
+BOOL dropinventory(unsigned char object);
 
 /* Check if an object is movable. */
 BOOL movable(unsigned char object);

@@ -99,7 +99,8 @@ unsigned char take(unsigned char object)
 		default:
 			if (movable(object))
 			{
-				addinventory(object);
+				if (addinventory(object))
+					puts("Taken.");
 			}
 			else
 			{
@@ -328,7 +329,8 @@ unsigned char look(unsigned char object)
 
 unsigned char drop(unsigned char object)
 {
-	dropinventory(object);
+	if (dropinventory(object))
+		puts("Dropped.");
 	return GAME_CONTINUES;
 }
 
