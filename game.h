@@ -7,7 +7,7 @@
 #define FALSE 0
 
 /* Constants */
-#define OBJECTS 20
+#define OBJECTS 21
 #define INVENTORY 2
 #define MAPSIZE 30
 

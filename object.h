@@ -27,6 +27,7 @@ void printobject(unsigned char);
 #define O_ELIXIR 17
 #define O_BOOK 18
 #define O_DOOR 19
+#define O_COKE 20
 
 /* Retrieve object number from a word.
  * Checks the current room and (optionally) inventory.

@@ -301,7 +301,8 @@ unsigned char drink(unsigned char object)
 
 unsigned char throw(unsigned char object)
 {
-	if (object <= O_LAST_STONE && 9 == gamedata->room)
+	if ((object <= O_LAST_STONE || O_COKE == object) &&
+	    9 == gamedata->room)
 	{
 		return hit(O_SQUIRREL);
 	}
@@ -330,8 +331,44 @@ unsigned char look(unsigned char object)
 
 unsigned char drop(unsigned char object)
 {
-	if (dropinventory(object))
-		puts("Dropped.");
+	switch (object)
+	{
+		case O_COKE:
+			switch (gamedata->room)
+			{
+			case 28: case 29: /* Dump */
+				putstring("Throwing away a perfectly recyclable bottle? "
+				          "No way!");
+				break;
+
+			case 1:  case 2:  case 3:
+			case 7:  case 8:  case 9:
+			case 13: case 14: case 15:
+			case 30: /* Forest */
+				puts("Someone might get hurt!");
+				break;
+
+			case 12:
+				if (dropinventory(O_COKE))
+				{
+					putstring("You recycle the bottle. Thank you for being "
+					          "kind to the nature!");
+					gamedata->objects[O_COKE] = -1; /* Remove from game */
+					break;
+				}
+				/* else fall through */
+
+			default:
+				puts("Please recycle the bottle.");
+				break;
+			}
+			break;
+
+		default:
+			if (dropinventory(object))
+				puts("Dropped.");
+	}
+
 	return GAME_CONTINUES;
 }
 

@@ -65,6 +65,10 @@ void printobject(unsigned char objnum)
 		case O_DOOR:
 			s = "A door.";
 			break;
+
+		case O_COKE:
+			s = "Empty Coke bottle.";
+			break;
 	}
 
 	puts(s);
@@ -91,55 +95,78 @@ BOOL findobject(unsigned char object, BOOL checkinventory)
 	return FALSE;
 }
 
-#define NOUNS 12
+#define NOUNS 22
 
-static const char *nouns[NOUNS] =
+static struct objinfo_s
 {
-	"stone", "pill", "squirrel", "coin",
-	"cottage", "door", "switch", "hub cap",
-	"key", "scientist", "potion", "book"
-};
-
-static const signed char objnums[NOUNS] =
+	const char *noun;
+	signed char objnum;
+} objinfo[NOUNS] =
 {
-	-1, O_PILL, O_SQUIRREL, O_COIN,
-	O_COTTAGE, O_DOOR, O_SWITCH, O_HUBCAP,
-	O_KEY, O_SCIENTIST, O_ELIXIR, O_BOOK
+	{ "stone",			-1 },
+	{ "rock",			-1 },
+	{ "pill",			O_PILL },
+	{ "squirrel",		O_SQUIRREL },
+	{ "coin",			O_COIN },
+	{ "gold coin",		O_COIN },
+	{ "money",			O_COIN },
+	{ "cottage",		O_COTTAGE },
+	{ "house",			O_COTTAGE },
+	{ "door",			O_DOOR },
+	{ "switch",			O_SWITCH },
+	{ "hub cap",		O_HUBCAP },
+	{ "key",			O_KEY },
+	{ "door key",		O_KEY },
+	{ "scientist",		O_SCIENTIST },
+	{ "madman",			O_SCIENTIST },
+	{ "potion",			O_ELIXIR },
+	{ "book",			O_BOOK },
+	{ "bottle",			O_COKE },
+	{ "empty bottle",	O_COKE },
+	{ "coke",			O_COKE },
+	{ "coca cola",		O_COKE }
 };
 
 signed char objectfromword(const char *s, BOOL checkinventory)
 {
 	NR signed char i, j;
-	NR const char **noun;
-	NR const signed char *objnum;
+	NR struct objinfo_s *obj;
+	NR signed char objnum;
 
 	j = -1;
 
-	noun = nouns;
-	for (i = 0; i < NOUNS; i ++, noun ++)
+	obj = objinfo;
+	for (i = 0; i < NOUNS; i ++, obj ++)
 	{
-		if (!strcmp(s, *noun))
+		if (!strcmp(s, obj->noun))
 		{
 			j = i;
 			break;
 		}
 	}
 
-	if (-1 == j) return -1;
-
-	if (!j)
+	switch (j)
 	{
+	case -1:
+		/* Not found in word list */
+		return -1;
+
+	case 0:
+	case 1:
 		/* Stones (obj 0-8) */
 		for (i = 0; i < 9; i ++)
 		{
 			if (findobject(i, checkinventory))
 				return i;
 		}
-	}
+		break;
 
-	objnum = &objnums[j];
-	if (findobject(*objnum, checkinventory))
-		return *objnum;
+	default:
+		objnum = obj->objnum;
+		if (findobject(objnum, checkinventory))
+			return objnum;
+		break;
+	}
 
 	return -1;
 }
@@ -194,6 +221,7 @@ BOOL movable(unsigned char object)
 		case O_SCIENTIST:
 		case O_ELIXIR:
 		case O_BOOK:
+		case O_COKE:
 			return TRUE;
 
 		default:
