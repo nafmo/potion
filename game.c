@@ -59,7 +59,7 @@ int main(void)
 			break;
 	}
 
-	puts(s);
+	PUTS(s);
 
 #ifndef __C64__
 	free(gamedata);
@@ -131,8 +131,20 @@ void initgame(void)
 #endif
 
 	gamedata->room = 15;
+#ifdef SMALL
+	__asm__("resetobjects: ldx #%b", (unsigned char) OBJECTS);
+	__asm__("sta %w,x", (unsigned int) gamedata->objects - 1);
+	__asm__("dex");
+	__asm__("bne resetobjects");
+
+	__asm__("resetmap: ldx #%b", (unsigned char) MAPSIZE);
+	__asm__("sta %w,x", (unsigned int) gamedata->map - 1);
+	__asm__("dex");
+	__asm__("bne resetmap");
+#else
 	memcpy(gamedata->objects, defaultrooms, OBJECTS);
 	memcpy(gamedata->map, defaultmap, MAPSIZE);
+#endif
 }
 
 void intro(void)
@@ -146,12 +158,17 @@ void intro(void)
 	VIC.spr_ena = 0;
 
 	/* Clear screen and set light gray colour */
+# ifdef SMALL
+	PUTCHAR(147); /* clear screen */
+	PUTCHAR(155); /* gray 3 */
+# else
 	clrscr();
 	textcolor(COLOR_GRAY3);
+# endif
 #endif
 
 #ifdef SMALL
-	puts("The Potion");
+	PUTS("The Potion");
 #else
 	putstring("The Potion - a simple adventure\n"
 	          "==========\n\n"

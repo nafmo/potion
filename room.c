@@ -145,7 +145,7 @@ void printroom(void)
 	}
 
 #ifdef SMALL
-	puts(s);
+	PUTS(s);
 #else
 	putstring(s);
 #endif
@@ -158,28 +158,28 @@ void printroom(void)
 		{
 			if (!seen)
 			{
-				puts("You see:");
+				PUTS("You see:");
 				seen = TRUE;
 			}
 			printobject(i);
 
 			if (O_SCIENTIST == i && !gamedata->seenscientist)
 			{
-				puts("He says: \"What are you doing here?\"");
+				PUTS("He says: \"What are you doing here?\"");
 				gamedata->seenscientist = TRUE;
 			}
 		}
 	}
 
 	/* Print exits */
-	puts("Available exits:");
+	PUTS("Available exits:");
 	if ((unsigned char) (mapdata & EXIT_NORTH) != 0)
-		putchar('N');
+		PUTCHAR('N');
 	if ((unsigned char) (mapdata & EXIT_SOUTH) != 0)
-		putchar('S');
+		PUTCHAR('S');
 	if ((unsigned char) (mapdata & EXIT_EAST) != 0)
-		putchar('E');
+		PUTCHAR('E');
 	if ((unsigned char) (mapdata & EXIT_WEST) != 0)
-		putchar('W');
-	putchar('\n');
+		PUTCHAR('W');
+	PUTCHAR('\n');
 }

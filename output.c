@@ -5,6 +5,7 @@
 #include "output.h"
 #include "game.h"
 
+#ifndef SMALL
 void putstring(const char *s)
 {
 	static char tmpbuf[SCREENWIDTH];
@@ -52,7 +53,7 @@ void putstring(const char *s)
 		}
 
 		/* Print the text */
-		puts(tmpbuf);
+		PUTS(tmpbuf);
 
 		/* Advance pointer */
 		s = p + 1;
@@ -61,5 +62,21 @@ void putstring(const char *s)
 		len -= width;
 	}
 
-	puts(s);
+	PUTS(s);
 }
+#endif
+
+#ifdef SMALL
+void myputs(const unsigned char *s)
+{
+	NR unsigned char c;
+
+	while (c = *s)
+	{
+		__asm__("lda %v", c);
+		__asm__("jsr %w", CHROUT);
+		++ s;
+	}
+	PUTCHAR('\n');
+}
+#endif

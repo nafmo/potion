@@ -4,6 +4,7 @@
 #include "input.h"
 #include "action.h"
 #include "object.h"
+#include "output.h"
 
 unsigned char perform(unsigned char verb)
 {
@@ -38,9 +39,9 @@ unsigned char perform(unsigned char verb)
 	if (-1 == object)
 	{
 #ifdef SMALL
-		puts("What?");
+		PUTS("What?");
 #else
-		puts("I do not see that here.");
+		PUTS("I do not see that here.");
 #endif
 		return GAME_CONTINUES;
 	}
@@ -88,7 +89,7 @@ unsigned char perform(unsigned char verb)
 	}
 
 #ifndef SMALL
-	puts("Say what?");
+	PUTS("Say what?");
 #endif
 
 	/* This should never happen */

@@ -3,6 +3,7 @@
 
 #include "input.h"
 #include "game.h"
+#include "output.h"
 
 #ifdef SMALL
 # define VERBS 27
@@ -73,15 +74,16 @@ unsigned char getinput(void)
 		NR unsigned char i;
 		NR const struct verb_s *verb;
 
-		fputs("Your turn? ", stdout);
 #ifdef __C64__
+		PUTS("Your turn?");
 		getline();
 #else
+		fputs("Your turn? ", stdout);
 		fgets(input, 1024, stdin);
 		input[1023] = 0;
 		input[strlen(input) - 1] = 0;
 #endif
-		putchar('\n');
+		PUTCHAR('\n');
 
 		verb = verbs;
 		for (i = VERBS; i; -- i, ++ verb)
@@ -107,9 +109,9 @@ unsigned char getinput(void)
 		}
 
 #ifdef SMALL
-		puts("What?");
+		PUTS("What?");
 #else
-		puts("I do not understand.");
+		PUTS("I do not understand.");
 #endif
 	}
 }

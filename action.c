@@ -9,12 +9,12 @@
 
 void cannotdothat(void)
 {
-	puts("You cannot do that!");
+	PUTS("You cannot do that!");
 }
 
 void nothing(void)
 {
-	puts("Nothing.");
+	PUTS("Nothing.");
 }
 
 unsigned char move(unsigned char verb)
@@ -25,7 +25,7 @@ unsigned char move(unsigned char verb)
 	/* Seen scientist? */
 	if (gamedata->seenscientist)
 	{
-		puts("The scientist captures you.");
+		PUTS("The scientist captures you.");
 		return GAME_LOST;
 	}
 
@@ -47,7 +47,7 @@ unsigned char move(unsigned char verb)
 	}
 	else
 	{
-		puts("You cannot go that way.");
+		PUTS("You cannot go that way.");
 		return GAME_CONTINUES;
 	}
 
@@ -74,7 +74,7 @@ unsigned char move(unsigned char verb)
 		{
 		case 1:
 #ifdef SMALL
-			puts("The potion is heating.");
+			PUTS("The potion is heating.");
 #else
 			putstring("The potion is starting to heat up.");
 #endif
@@ -82,7 +82,7 @@ unsigned char move(unsigned char verb)
 
 		case 5:
 #ifdef SMALL
-			puts("The potion is reacting with the Coke.");
+			PUTS("The potion is reacting with the Coke.");
 #else
 			putstring("Some kind kind of reaction seems to be happening "
 			          "between the potion and what is left of the Coke.");
@@ -91,7 +91,7 @@ unsigned char move(unsigned char verb)
 
 		case 10:
 #ifdef SMALL
-			puts("The bottles are about to explode!");
+			PUTS("The bottles are about to explode!");
 #else
 			putstring("You better get rid of one of the bottles before "
 			          "the potion explodes!");
@@ -100,7 +100,7 @@ unsigned char move(unsigned char verb)
 
 		case 12:
 #ifdef SMALL
-			puts("The potion explodes in your face!");
+			PUTS("The potion explodes in your face!");
 #else
 			putstring("The potion explodes in your face!");
 #endif
@@ -135,7 +135,7 @@ unsigned char inventory(void)
 	hasanything = FALSE;
 
 #ifdef SMALL
-	puts("Inventory:");
+	PUTS("Inventory:");
 
 	if (gamedata->inventory[0] != -1)
 	{
@@ -150,7 +150,7 @@ unsigned char inventory(void)
 #else
 	inventory = gamedata->inventory;
 
-	puts("You are carrying:");
+	PUTS("You are carrying:");
 	for (i = INVENTORY; i; -- i, ++ inventory)
 		if (*inventory != -1)
 		{
@@ -173,7 +173,7 @@ unsigned char take(unsigned char object)
 			/* Something special happens when we take the pill */
 			gamedata->pilleaten = TRUE;
 			gamedata->objects[O_PILL] = -1;
-			puts("You understand.");
+			PUTS("You understand.");
 			break;
 
 		case O_STONE_PILL:
@@ -181,9 +181,9 @@ unsigned char take(unsigned char object)
 			if (!gamedata->pilleaten && -1 == gamedata->objects[O_PILL])
 			{
 #ifdef SMALL
-				puts("You find a pill.");
+				PUTS("You find a pill.");
 #else
-				puts("You found a small pill beneath it.");
+				PUTS("You found a small pill beneath it.");
 #endif
 				gamedata->objects[O_PILL] = gamedata->room;
 				break;
@@ -194,7 +194,7 @@ unsigned char take(unsigned char object)
 			if (movable(object))
 			{
 				if (addinventory(object))
-					puts("Taken.");
+					PUTS("Taken.");
 			}
 			else
 			{
@@ -231,7 +231,7 @@ unsigned char read(unsigned char object)
 	{
 		case O_STONE_MISSION:
 #ifdef SMALL
-			puts("\"Save us from the evil scientist.\n"
+			PUTS("\"Save us from the evil scientist.\n"
 			     " Mix his evil drug with salt water.\"");
 #else
 			putstring("It says:\n"
@@ -254,7 +254,7 @@ unsigned char talkto(unsigned char object)
 	{
 		case O_SCIENTIST:
 #ifdef SMALL
-			puts("\"You will die with the rest!\"");
+			PUTS("\"You will die with the rest!\"");
 #else
 			putstring("The scientist says:\n"
 			          "\"You will die with the rest!\" "
@@ -266,7 +266,7 @@ unsigned char talkto(unsigned char object)
 			if (gamedata->pilleaten)
 			{
 #ifdef SMALL
-				puts("\"You can now exit the forest\"");
+				PUTS("\"You can now exit the forest\"");
 #else
 				putstring("The squirrel says:\n"
 				          "\"You can now exit the forest\"");
@@ -315,15 +315,15 @@ unsigned char unlock(unsigned char object)
 		{
 			case O_COTTAGE:
 #ifdef SMALL
-				puts("You find a switch.");
+				PUTS("You find a switch.");
 #else
-				puts("You find a switch inside.");
+				PUTS("You find a switch inside.");
 #endif
 				gamedata->objects[O_SWITCH] = gamedata->room;
 				return GAME_CONTINUES;
 			
 			case O_DOOR:
-				puts("It opens revealing a laboratory.");
+				PUTS("It opens revealing a laboratory.");
 				gamedata->map[20 - 1] |= EXIT_WEST;
 				return GAME_CONTINUES;
 		}
@@ -338,7 +338,7 @@ unsigned char turn(unsigned char object)
 	switch (object)
 	{
 		case O_SWITCH:
-			puts("Thud.");
+			PUTS("Thud.");
 			gamedata->map[22 - 1] |= EXIT_WEST;
 			break;
 
@@ -356,7 +356,7 @@ unsigned char hit(unsigned char object)
 	{
 		case O_SQUIRREL:
 			/* If we hit the squirrel, we kill it. */
-			puts("You kill the squirrel.");
+			PUTS("You kill the squirrel.");
 			return GAME_LOST;
 
 		case O_SCIENTIST:
@@ -365,7 +365,7 @@ unsigned char hit(unsigned char object)
 			/* Remove scientist from game */
 			gamedata->objects[O_SCIENTIST] = -1;
 
-			puts("He will not bother you again.");
+			PUTS("He will not bother you again.");
 			break;
 
 		default:
@@ -379,7 +379,7 @@ unsigned char hit(unsigned char object)
 unsigned char kill(void)
 {
 #ifdef SMALL
-	puts("This is a family game.");
+	PUTS("This is a family game.");
 #else
 	putstring("No strong violence please. This is a family game.");
 #endif
@@ -399,17 +399,17 @@ unsigned char pour(unsigned char object)
 			 {
 			 	case 6:
 #ifdef SMALL
-					puts("You neutralised it.");
+					PUTS("You neutralised it.");
 #else
-					puts("The potion has been neutralised.");
+					PUTS("The potion has been neutralised.");
 #endif
 					return GAME_WON;
 
 				default:
 #ifdef SMALL
-					puts("It poisons the land.");
+					PUTS("It poisons the land.");
 #else
-					puts("The potion poisons the land.");
+					PUTS("The potion poisons the land.");
 #endif
 					return GAME_LOST;
 			}
@@ -417,9 +417,9 @@ unsigned char pour(unsigned char object)
 
 		case O_COKE:
 #ifdef SMALL
-			puts("It's empty.");
+			PUTS("It's empty.");
 #else
-			puts("The bottle is empty.");
+			PUTS("The bottle is empty.");
 #endif
 			break;
 
@@ -437,7 +437,7 @@ unsigned char drink(unsigned char object)
 	{
 		case O_ELIXIR:
 			/* Can only drink the elixir, and we lose if we do it */
-			puts("You die instantly.");
+			PUTS("You die instantly.");
 			return GAME_LOST;
 
 		case O_COKE:
@@ -493,7 +493,7 @@ unsigned char drop(unsigned char object)
 				if (dropinventory(O_COKE))
 				{
 #ifdef SMALL
-					puts("Thank you for recycling!");
+					PUTS("Thank you for recycling!");
 #else
 					putstring("You recycle the bottle. Thank you for being "
 					          "kind to the nature!");
@@ -516,16 +516,16 @@ unsigned char drop(unsigned char object)
 			case 13: case 14: case 15:
 			case 30: /* Forest */
 #ifndef SMALL
-				puts("Someone might get hurt!");
+				PUTS("Someone might get hurt!");
 				break;
 #endif
 				/* Fall through for small build */
 
 			default:
 #ifdef SMALL
-				puts("Please recyle.");
+				PUTS("Please recyle.");
 #else
-				puts("Please recycle the bottle.");
+				PUTS("Please recycle the bottle.");
 #endif
 				break;
 			}
@@ -535,7 +535,7 @@ unsigned char drop(unsigned char object)
 			if (gamedata->bothbottles)
 			{
 #ifdef SMALL
-				puts("You do not dare to.");
+				PUTS("You do not dare to.");
 #else
 				putstring("You dare not drop the potion in its current "
 				          "state!");
@@ -546,7 +546,7 @@ unsigned char drop(unsigned char object)
 
 		default:
 			if (dropinventory(object))
-				puts("Dropped.");
+				PUTS("Dropped.");
 	}
 
 	return GAME_CONTINUES;
@@ -576,7 +576,7 @@ unsigned char license(void)
 unsigned char quit(void)
 {
 #ifdef SMALL
-	puts("You hear the evil scientist laughing\n"
+	PUTS("You hear the evil scientist laughing\n"
 	     "mercilessly.");
 #else
 	putstring("You leave for your home country. In the distance, you "

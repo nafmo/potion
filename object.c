@@ -3,6 +3,7 @@
 
 #include "game.h"
 #include "object.h"
+#include "output.h"
 
 void printobject(unsigned char objnum)
 {
@@ -71,7 +72,7 @@ void printobject(unsigned char objnum)
 			break;
 	}
 
-	puts(s);
+	PUTS(s);
 }
 
 BOOL findobject(unsigned char _object, BOOL checkinventory)
@@ -200,7 +201,7 @@ BOOL addinventory(unsigned char object)
 	}
 	else
 	{
-		puts("Too heavy.");
+		PUTS("Too heavy.");
 		return FALSE;
 	}
 
@@ -220,7 +221,7 @@ BOOL addinventory(unsigned char object)
 				return TRUE;
 		}
 
-	puts("It is too heavy.");
+	PUTS("It is too heavy.");
 	return FALSE;
 #endif
 }
@@ -239,7 +240,7 @@ BOOL dropinventory(unsigned char object)
 	}
 	else
 	{
-		puts("What?");
+		PUTS("What?");
 		return FALSE;
 	}
 
@@ -258,7 +259,7 @@ BOOL dropinventory(unsigned char object)
 			return TRUE;
 		}
 
-	puts("You are not carrying that.");
+	PUTS("You are not carrying that.");
 #endif
 	return FALSE;
 }
