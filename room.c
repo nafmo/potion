@@ -43,7 +43,7 @@ void printroom(void)
 			{
 			case 0:
 			case 1:
-				gamedata->roadvisit ++;
+				++ gamedata->roadvisit;
 			case 3:
 				s = "You are standing on an autobahn. "
 				    "Several cars are passing passing by.";
@@ -53,7 +53,7 @@ void printroom(void)
 				s = "You are standing on an autobahn. "
 				    "Suddenly you see a skateboarder pass by, grabbing a "
 				    "bottle of Coca Cola from a nearby car.";
-				gamedata->roadvisit ++;
+				++ gamedata->roadvisit;
 				gamedata->objects[O_COKE] = gamedata->room;
 				break;
 			}
@@ -101,7 +101,7 @@ void printroom(void)
 
 	/* Print room contents */
 	object = gamedata->objects;
-	for (i = 0; i < OBJECTS; i ++, object ++)
+	for (i = 0; i < OBJECTS; ++ i, ++ object)
 	{
 		if (*object == gamedata->room)
 		{

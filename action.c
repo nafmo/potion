@@ -96,7 +96,7 @@ unsigned char inventory(void)
 	inventory = gamedata->inventory;
 
 	puts("You are carrying:");
-	for (i = INVENTORY; i; i --, inventory ++)
+	for (i = INVENTORY; i; -- i, ++ inventory)
 		if (*inventory != -1)
 		{
 			printobject(*inventory);
@@ -218,7 +218,7 @@ unsigned char unlock(unsigned char object)
 
 	havekey = FALSE;
 
-	for (i = 0; i < INVENTORY; i ++)
+	for (i = 0; i < INVENTORY; ++ i)
 		if (O_KEY == gamedata->inventory[i])
 			havekey = TRUE;
 

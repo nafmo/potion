@@ -32,7 +32,7 @@ void putstring(const char *s)
 				case ' ': lastspace = p;
 			}
 			*(dest ++) = *(p ++);
-			spaceleft --;
+			-- spaceleft;
 		}
 
 		if ('\n' != *p)

@@ -118,7 +118,7 @@ void initgame(void)
 	input = malloc(1024);
 #endif
 
-	for (i = 0; i < INVENTORY; i ++)
+	for (i = 0; i < INVENTORY; ++ i)
 		gamedata->inventory[i] = -1;
 
 	gamedata->room = 15;

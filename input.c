@@ -78,7 +78,7 @@ unsigned char getinput(void)
 		putchar('\n');
 
 		verb = verbs;
-		for (i = VERBS; i; i --, verb ++)
+		for (i = VERBS; i; -- i, ++ verb)
 		{
 			NR unsigned char n;
 			NR char *p;

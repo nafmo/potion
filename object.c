@@ -87,7 +87,7 @@ BOOL findobject(unsigned char object, BOOL checkinventory)
 	if (checkinventory)
 	{
 		inventory = gamedata->inventory;
-		for (i = INVENTORY; i; i --, inventory ++)
+		for (i = INVENTORY; i; -- i, ++ inventory)
 			if (*inventory == object)
 				return TRUE;
 	}
@@ -136,7 +136,7 @@ signed char objectfromword(const char *s, BOOL checkinventory)
 	j = -1;
 
 	obj = objinfo;
-	for (i = 0; i < NOUNS; i ++, obj ++)
+	for (i = 0; i < NOUNS; ++ i, ++ obj)
 	{
 		if (!strcmp(s, obj->noun))
 		{
@@ -154,7 +154,7 @@ signed char objectfromword(const char *s, BOOL checkinventory)
 	case 0:
 	case 1:
 		/* Stones (obj 0-8) */
-		for (i = 0; i < 9; i ++)
+		for (i = 0; i < 9; ++ i)
 		{
 			if (findobject(i, checkinventory))
 				return i;
@@ -178,7 +178,7 @@ BOOL addinventory(unsigned char object)
 
 	inventory = gamedata->inventory;
 
-	for (i = INVENTORY; i; i --, inventory ++)
+	for (i = INVENTORY; i; -- i, ++ inventory)
 		switch (*inventory)
 		{
 			case -1:
@@ -198,7 +198,7 @@ BOOL dropinventory(unsigned char object)
 
 	inventory = gamedata->inventory;
 
-	for (i = INVENTORY; i; i --, inventory ++)
+	for (i = INVENTORY; i; -- i, ++ inventory)
 		if ((signed char) object == *inventory)
 		{
 			*inventory = -1;
