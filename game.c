@@ -72,7 +72,7 @@ int main(void)
 static const signed char defaultrooms[OBJECTS] =
 {
 	1, 2, 3, 7, 8, 9, 13, 14, 15, -1, 9,
-	18, 16, -1, 24, 28, 19, 25, 26, 20
+	18, 16, -1, 24, 28, 19, 25, 26, 20, -1
 };
 
 static const unsigned char defaultmap[MAPSIZE] =
