@@ -112,9 +112,6 @@ static const unsigned char defaultmap[MAPSIZE] =
 void initgame(void)
 {
 	NR unsigned char i;
-#ifndef __C64__
-	const char *columns;
-#endif
 
 #ifndef __C64__
 	gamedata = malloc(sizeof (struct gamedata_s));
