@@ -75,6 +75,12 @@ void printroom(void)
 				seen = TRUE;
 			}
 			printobject(i);
+
+			if (O_SCIENTIST == i && !gamedata->seenscientist)
+			{
+				puts("He says: \"What are you doing here?\"");
+				gamedata->seenscientist = TRUE;
+			}
 		}
 	}
 
