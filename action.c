@@ -48,6 +48,39 @@ unsigned char move(unsigned char verb)
 	else
 	{
 		puts("You cannot go that way.");
+		return GAME_CONTINUES;
+	}
+
+	/* Check if we are carrying both bottles */
+	if ((O_ELIXIR == gamedata->inventory[0] && O_COKE == gamedata->inventory[1])
+	    ||
+	    (O_ELIXIR == gamedata->inventory[1] && O_COKE == gamedata->inventory[0]))
+	{
+		switch (++ gamedata->bothbottles)
+		{
+		case 1:
+			putstring("The potion is starting to heat up.");
+			break;
+
+		case 5:
+			putstring("Some kind kind of reaction seems to be happening "
+			          "between the potion and what is left of the Coke.");
+			break;
+
+		case 10:
+			putstring("You better get rid of one of the bottles before "
+			          "the potion explodes!");
+			break;
+
+		case 12:
+			putstring("The potion explodes in your face!");
+			return GAME_LOST;
+		}
+	}
+	else
+	{
+		/* Reset counter */
+		gamedata->bothbottles = 0;
 	}
 
 	return GAME_CONTINUES;
@@ -334,6 +367,7 @@ unsigned char drop(unsigned char object)
 	switch (object)
 	{
 		case O_COKE:
+			/* Can only recycle the Cola bottle once we've taken it */
 			switch (gamedata->room)
 			{
 			case 28: case 29: /* Dump */
@@ -363,6 +397,15 @@ unsigned char drop(unsigned char object)
 				break;
 			}
 			break;
+
+		case O_ELIXIR:
+			if (gamedata->bothbottles)
+			{
+				putstring("You dare not drop the potion in its current "
+				          "state!");
+				break;
+			}
+			/* else fall through */
 
 		default:
 			if (dropinventory(object))

@@ -26,6 +26,7 @@ struct gamedata_s
 	BOOL seenscientist;
 	unsigned char map[MAPSIZE];
 	unsigned char roadvisit;
+	unsigned char bothbottles;
 };
 
 /* Global game data variable */
