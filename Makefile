@@ -5,8 +5,8 @@ all:
 	@echo "   make c64"
 
 clean:
-	rm potion potion.prg
-	rm -rf local target
+	-rm potion potion.prg
+	-rm -rf local target
 
 local:
 	make -f Makefile.linux
