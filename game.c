@@ -11,6 +11,7 @@
 #include "room.h"
 #include "input.h"
 #include "perform.h"
+#include "output.h"
 
 /* Global variables */
 #ifndef __C64__

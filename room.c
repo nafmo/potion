@@ -2,6 +2,7 @@
 
 #include "game.h"
 #include "object.h"
+#include "output.h"
 
 void printroom(void)
 {

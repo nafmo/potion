@@ -5,6 +5,7 @@
 #include "perform.h"
 #include "input.h"
 #include "game.h"
+#include "output.h"
 
 void cannotdothat(void)
 {
