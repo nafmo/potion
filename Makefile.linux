@@ -1,0 +1,15 @@
+OBJS=local/action.o local/game.o local/input.o local/object.o \
+     local/perform.o local/room.o
+
+all: local potion
+
+local:
+	mkdir local
+
+potion: $(OBJS)
+	gcc -o potion $(OBJS)
+
+local/%.o: %.c
+	gcc -c -o $@ $<
+
+.PHONY: all
