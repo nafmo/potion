@@ -287,7 +287,7 @@ unsigned char hit(unsigned char object)
 
 unsigned char kill(void)
 {
-	puts("Please. This is a family game.");
+	putstring("No strong violence please. This is a family game.");
 	return GAME_CONTINUES;
 }
 
@@ -310,11 +310,18 @@ unsigned char pour(unsigned char object)
 					puts("The potion poisons the land.");
 					return GAME_LOST;
 			}
+			break;
+
+		case O_COKE:
+			puts("The bottle is empty.");
+			break;
 
 		default:
 			cannotdothat();
-			return GAME_CONTINUES;
+			break;
 	}
+
+	return GAME_CONTINUES;
 }
 
 unsigned char drink(unsigned char object)
@@ -325,6 +332,11 @@ unsigned char drink(unsigned char object)
 			/* Can only drink the elixir, and we lose if we do it */
 			puts("You die instantly.");
 			return GAME_LOST;
+
+		case O_COKE:
+			/* It's empty */
+			return pour(O_COKE);
+			break;
 
 		default:
 			cannotdothat();
