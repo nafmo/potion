@@ -170,7 +170,9 @@ void intro(void)
 #endif
 
 #ifdef SMALL
-	PUTS("The Potion");
+	PUTS("The Potion\n"
+	     "Copyright 2002-2003 Peter Karlsson.\n"
+	     "http://www.softwolves.pp.se/cbm/\n");
 #else
 	putstring("The Potion - a simple adventure\n"
 	          "==========\n\n"
