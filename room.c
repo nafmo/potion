@@ -76,7 +76,7 @@ void printroom(void)
 			break;
 
 		case 22:
-			if ((unsigned char) (mapdata & EXIT_WEST) != 0)
+			if (!(unsigned char) (mapdata & EXIT_WEST))
 			{
 				s = "You are standing beside a big moat. There is no way "
 				    "to pass over it without lowering the drawbridge.";
