@@ -8,36 +8,53 @@
 
 static const struct verb_s
 {
+	const unsigned char len;
 	const char *s;
 	unsigned char verbnum;
 } verbs[VERBS] =
 {
-	{ "n", V_N },
-	{ "s", V_S },
-	{ "e", V_E },
-	{ "w", V_W },
-	{ "i", V_I },
-	{ "take", V_TAKE },
-	{ "pick up", V_TAKE },
-	{ "lift", V_LIFT },
-	{ "read", V_READ },
-	{ "talk to", V_TALKTO },
-	{ "unlock", V_UNLOCK },
-	{ "open", V_UNLOCK },
-	{ "turn", V_TURN },
-	{ "hit", V_HIT },
-	{ "punch", V_HIT },
-	{ "kick", V_HIT },
-	{ "kill", V_KILL },
-	{ "pour", V_POUR },
-	{ "empty", V_POUR },
-	{ "drink", V_DRINK },
-	{ "throw", V_THROW },
-	{ "look at", V_LOOK },
-	{ "look", V_LOOK },
-	{ "examine", V_LOOK },
-	{ "drop", V_DROP },
+	{ 1, "n", V_N },
+	{ 1, "s", V_S },
+	{ 1, "e", V_E },
+	{ 1, "w", V_W },
+	{ 1, "i", V_I },
+	{ 4, "take", V_TAKE },
+	{ 7, "pick up", V_TAKE },
+	{ 4, "lift", V_LIFT },
+	{ 4, "read", V_READ },
+	{ 7, "talk to", V_TALKTO },
+	{ 6, "unlock", V_UNLOCK },
+	{ 4, "open", V_UNLOCK },
+	{ 4, "turn", V_TURN },
+	{ 3, "hit", V_HIT },
+	{ 5, "punch", V_HIT },
+	{ 4, "kick", V_HIT },
+	{ 4, "kill", V_KILL },
+	{ 4, "pour", V_POUR },
+	{ 5, "empty", V_POUR },
+	{ 5, "drink", V_DRINK },
+	{ 5, "throw", V_THROW },
+	{ 7, "look at", V_LOOK },
+	{ 4, "look", V_LOOK },
+	{ 7, "examine", V_LOOK },
+	{ 4, "drop", V_DROP },
 };
+
+#ifdef __C64__
+void __fastcall__ getline(void)
+{
+#define CHRIN 0xFFCF
+
+	__asm__("ldy #$FF");
+	__asm__("chrinloop: iny");
+	__asm__("jsr %w", CHRIN);
+	__asm__("sta %w,y", (unsigned int) input);
+	__asm__("cmp #%b", '\n');
+	__asm__("bne chrinloop");
+	__asm__("lda #0");
+	__asm__("sta %w,y", (unsigned int) input);
+}
+#endif
 
 unsigned char getinput(void)
 {
@@ -48,7 +65,7 @@ unsigned char getinput(void)
 
 		fputs("Your turn? ", stdout);
 #ifdef __C64__
-		gets(input);
+		getline();
 #else
 		fgets(input, 1024, stdin);
 		input[1023] = 0;
@@ -59,10 +76,10 @@ unsigned char getinput(void)
 		verb = verbs;
 		for (i = VERBS; i; i --, verb ++)
 		{
-			NR size_t n;
+			NR unsigned char n;
 			NR char *p;
 
-			n = strlen(verb->s); /* Verb length */
+			n = verb->len; /* Verb length */
 			p = input + n; /* First character after verb */
 			if (!strncmp(input, verb->s, n) &&
 			    (!*p || ' ' == *p))
