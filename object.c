@@ -152,11 +152,12 @@ void addinventory(unsigned char object)
 	inventory = gamedata->inventory;
 
 	for (i = INVENTORY; i; i --, inventory ++)
-		if (-1 == *inventory)
+		switch (*inventory)
 		{
-			*inventory = object;
-			gamedata->objects[object] = -1;
-			return;
+			case -1:
+				*inventory = object;
+				gamedata->objects[object] = -1;
+				return;
 		}
 
 	puts("It is too heavy.");
@@ -168,7 +169,7 @@ void dropinventory(unsigned char object)
 	NR signed char *inventory;
 
 	for (i = INVENTORY; i; i --, inventory ++)
-		if (object == *inventory)
+		if ((signed char) object == *inventory)
 		{
 			*inventory = -1;
 			gamedata->objects[object] = gamedata->room;
