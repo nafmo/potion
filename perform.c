@@ -80,4 +80,9 @@ unsigned char perform(unsigned char verb)
 		case V_DROP:
 			return drop((unsigned char) object);
 	}
+
+	puts("Say what?");
+
+	/* This should never happen */
+	return GAME_CONTINUES;
 }
