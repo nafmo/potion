@@ -105,6 +105,7 @@ unsigned char take(unsigned char object)
 			{
 				cannotdothat();
 			}
+			break;
 	}
 	return GAME_CONTINUES;
 }
